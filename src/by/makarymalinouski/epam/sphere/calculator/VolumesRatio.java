@@ -4,11 +4,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.makarymalinouski.epam.sphere.entity.Sphere;
+import by.makarymalinouski.epam.sphere.exception.SphereNotCrossesCoordPlanesException;
 
 public class VolumesRatio {
     static final Logger LOGGER = LogManager.getLogger(VolumesRatio.class);
     
-    public double disectedByXYPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+    public static double disectedByXYPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
         if (!CoordinatePlanes.xyCrossesSphere(sphere)) {
             throw new SphereNotCrossesCoordPlanesException();
         }
@@ -29,7 +30,7 @@ public class VolumesRatio {
         return V1 / (V - V1);
     }
     
-    public double disectedByYZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+    public static double disectedByYZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
         if (!CoordinatePlanes.yzCrossesSphere(sphere)) {
             throw new SphereNotCrossesCoordPlanesException();
         }
@@ -42,7 +43,7 @@ public class VolumesRatio {
         return V1 / (V - V1);   
     }
     
-    public double disectedByXZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+    public static double disectedByXZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
         if (!CoordinatePlanes.xzCrossesSphere(sphere)) {
             throw new SphereNotCrossesCoordPlanesException();
         }

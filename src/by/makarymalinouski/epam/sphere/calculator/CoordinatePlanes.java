@@ -12,15 +12,15 @@ public class CoordinatePlanes {
     }
     
     public static boolean xyCrossesSphere(Sphere sphere) {
-        return sphere.getRadius() < sphere.getCenter().getZ();
+        return sphere.getRadius() > Math.abs(sphere.getCenter().getZ());
     }
     
     public static boolean yzCrossesSphere(Sphere sphere) {
-        return sphere.getRadius() < sphere.getCenter().getX();
+        return sphere.getRadius() > Math.abs(sphere.getCenter().getX());
     }
     
     public static boolean xzCrossesSphere(Sphere sphere) {
-        return sphere.getRadius() < sphere.getCenter().getY();
+        return sphere.getRadius() > Math.abs(sphere.getCenter().getY());
     }
 
 }

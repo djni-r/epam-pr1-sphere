@@ -2,20 +2,30 @@ package by.makarymalinouski.epam.sphere.creator;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 
 import by.makarymalinouski.epam.sphere.entity.Sphere;
+import by.makarymalinouski.epam.sphere.exception.NoCreatorValuesException;;
+
 
 public class SphereCreator {
-    public Collection<Sphere> createFromCollection(Collection<List<Double>> valuesCollection) {
+
+    public Collection<Sphere> createFromCollection(Collection<Map<String, Double>> valuesCollection) throws NoCreatorValuesException {
         Collection<Sphere> spheres = new HashSet<>();
-        for (List<Double> values : valuesCollection) {
+        for (Map<String, Double> values : valuesCollection) {
+            if (values.isEmpty()) {
+                throw new NoCreatorValuesException("Unable to create sphere. The map of values is empty");
+            }
             spheres.add(makeSphere(values));
         }
         return spheres;
     }
     
-    public Sphere makeSphere(List<Double> values) {
-        return new Sphere(values.get(0), values.get(1), values.get(2), values.get(3));
+    private Sphere makeSphere(Map<String, Double> values) {
+        return new Sphere(values.get("centerX"), 
+                          values.get("centerY"), 
+                          values.get("centerZ"), 
+                          values.get("radius")
+                      );
     }
 }

@@ -1,4 +1,4 @@
-package by.makarymalinouski.epam.sphere.calculator;
+package by.makarymalinouski.epam.sphere.exception;
 
 public class SphereNotCrossesCoordPlanesException extends Exception {
     public SphereNotCrossesCoordPlanesException() {
