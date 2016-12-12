@@ -1,27 +1,18 @@
-package by.makarymalinouski.epam.sphere.info;
+package by.makarymalinouski.epam.sphere.calculator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import by.makarymalinouski.epam.sphere.entity.Sphere;
 
-public class SphereInfo {
-    static final Logger LOGGER = LogManager.getLogger(SphereInfo.class);
-    private Sphere sphere;
+public class VolumesRatio {
+    static final Logger LOGGER = LogManager.getLogger(VolumesRatio.class);
     
-    public SphereInfo(Sphere sphere) {
-        this.sphere = sphere;
-    }
-    
-    public double surfaceArea() {
-        return 4 * Math.PI * Math.pow(sphere.getRadius(), 2);
-    }
-    
-    public double volume() {
-        return 4 * Math.PI * Math.pow(sphere.getRadius(), 3);
-    }
-    
-    public double volumesRatioXY() {
+    public double disectedByXYPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+        if (!CoordinatePlanes.xyCrossesSphere(sphere)) {
+            throw new SphereNotCrossesCoordPlanesException();
+        }
+            
         double R = sphere.getRadius();
         LOGGER.debug("radius: " + R);
         double H = R - Math.abs(sphere.getCenter().getZ());
@@ -38,7 +29,10 @@ public class SphereInfo {
         return V1 / (V - V1);
     }
     
-    public double volumesRatioYZ() {
+    public double disectedByYZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+        if (!CoordinatePlanes.yzCrossesSphere(sphere)) {
+            throw new SphereNotCrossesCoordPlanesException();
+        }
         double R = sphere.getRadius();
         double H = R - Math.abs(sphere.getCenter().getX());
 
@@ -48,7 +42,10 @@ public class SphereInfo {
         return V1 / (V - V1);   
     }
     
-    public double volumesRatioZX() {
+    public double disectedByXZPlane(Sphere sphere) throws SphereNotCrossesCoordPlanesException {
+        if (!CoordinatePlanes.xzCrossesSphere(sphere)) {
+            throw new SphereNotCrossesCoordPlanesException();
+        }
         double R = sphere.getRadius();
         double H = R - Math.abs(sphere.getCenter().getY());
 
@@ -56,12 +53,5 @@ public class SphereInfo {
         double V = 4/3 * Math.PI * Math.pow(R, 3);
         
         return V1 / (V - V1);
-    }
-    
-    public boolean touchesCoordinatePlane() {
-        double R = sphere.getRadius();
-        return sphere.getCenter().getX() - R == 0 ||
-               sphere.getCenter().getY() - R == 0 ||
-               sphere.getCenter().getZ() - R == 0;
     }
 }

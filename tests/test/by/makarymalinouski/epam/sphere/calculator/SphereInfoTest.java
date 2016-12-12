@@ -1,4 +1,4 @@
-package test.by.makarymalinouski.epam.sphere.info;
+package test.by.makarymalinouski.epam.sphere.calculator;
 
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
@@ -6,14 +6,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Ignore;
-import org.junit.Rule;
 
-import by.makarymalinouski.epam.sphere.info.SphereInfo;
+import by.makarymalinouski.epam.sphere.calculator.SphereInfo;
+import by.makarymalinouski.epam.sphere.calculator.SphereNotCrossesCoordPlanesException;
 import by.makarymalinouski.epam.sphere.entity.Sphere;
 
 public class SphereInfoTest {
 
+    @Before
     public SphereInfo sphereInfo = new SphereInfo(new Sphere(0, 2, -3, 3.5));
 
     @Test
@@ -36,7 +38,12 @@ public class SphereInfoTest {
         double v1 = Math.PI * h*h / 3 * (3*r - h);
         double v = 4/3 * Math.PI * Math.pow(r, 3);
         double ratio = v1 / (v - v1);
-        assertEquals("ratio of volumes divided by XY plane", ratio, sphereInfo.volumesRatioXY(), 0);
+        try {
+            assertEquals("ratio of volumes divided by XY plane", ratio, sphereInfo.volumesRatioXY(), 0);
+        } catch (SphereNotCrossesCoordPlanesException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 
@@ -51,16 +58,5 @@ public class SphereInfoTest {
         fail("Not yet implemented");
     }
 
-    @Test
-    public void touchesCoordinatePlaneTest_True() {
-        assertTrue("true - touches the plane", 
-                new SphereInfo(new Sphere(3, 0, 0, 3)).touchesCoordinatePlane());
-    }
-    
-    @Test
-    public void touchesCoordinatePlaneTest_False() {
-        assertFalse("false - doesn't touch the plane", 
-                new SphereInfo(new Sphere(3, 0, 0, 2)).touchesCoordinatePlane());
-    }
 
 }

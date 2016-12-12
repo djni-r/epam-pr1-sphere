@@ -13,6 +13,7 @@ public class Sphere {
         center = new Point(centerX, centerY, centerZ);
         this.radius = radius;
     }
+    
     public double getRadius() {
         return radius;
     }
