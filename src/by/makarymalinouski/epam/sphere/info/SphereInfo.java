@@ -1,4 +1,6 @@
-package by.makarymalinouski.epam.project1;
+package by.makarymalinouski.epam.sphere.info;
+
+import by.makarymalinouski.epam.sphere.entity.Sphere;
 
 public class SphereInfo {
     private Sphere sphere;
@@ -15,15 +17,19 @@ public class SphereInfo {
         throw new RuntimeException("not implemented yet");
     }
     
-    public int ratioVolumesDisectedByX() {
+    public int volumesRatioX() {
         throw new RuntimeException("not implemented yet");
     }
     
-    public int ratioVolumesDisectedByY() {
+    public int volumesRatioY() {
         throw new RuntimeException("not implemented yet");
     }
     
-    public int ratioVolumesDisectedByZ() {
+    public int volumesRatioZ() {
         throw new RuntimeException("not implemented yet");
+    }
+    
+    public boolean touchesCoordinatePlane() {
+        throw new RuntimeException("Not yet implemented");
     }
 }
