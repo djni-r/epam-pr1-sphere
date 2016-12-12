@@ -1,32 +1,36 @@
 package by.makarymalinouski.epam.sphere.entity;
 
 public class Point {
-    private final int x, y, z;
+    private final double x, y, z;
     
-    public Point(int x, int y, int z) {
+    public Point(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
     
-    public int getX() {
+    public double getX() {
         return x;
     }
     
-    public int getY() {
+    public double getY() {
         return y;
     }
     
-    public int getZ() {
+    public double getZ() {
         return z;
     }
     
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + x;
-        result = 31 * result + y;
-        result = 31 * result + z;
+        long xL = Double.doubleToLongBits(x);
+        long yL = Double.doubleToLongBits(y);
+        long zL = Double.doubleToLongBits(z);
+
+        result = 31 * result + (int) (xL^(xL >>> 32));
+        result = 31 * result + (int) (yL^(yL >>> 32));
+        result = 31 * result + (int) (zL^(zL >>> 32));
         return result;
     }
     
@@ -41,5 +45,10 @@ public class Point {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Point (%d, %d, %d)", x, y, z);
     }
 }

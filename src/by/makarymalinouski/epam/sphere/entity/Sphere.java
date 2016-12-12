@@ -1,15 +1,19 @@
 package by.makarymalinouski.epam.sphere.entity;
 
 public class Sphere {
-    private int radius;
+    private double radius;
     private Point center;
     
-    public Sphere(Point center, int radius) {
+    public Sphere(Point center, double radius) {
         this.radius = radius;
         this.center = center;
     }
     
-    public int getRadius() {
+    public Sphere(double centerX, double centerY, double centerZ, double radius) {
+        center = new Point(centerX, centerY, centerZ);
+        this.radius = radius;
+    }
+    public double getRadius() {
         return radius;
     }
     
@@ -20,7 +24,8 @@ public class Sphere {
     @Override
     public int hashCode() {
         int result = 37;
-        result = 31 * result + radius;
+        long r = Double.doubleToLongBits(radius);
+        result = 31 * result + (int) (r^(r >>> 32));
         result = 31 * result + center.hashCode();
         return result;
     }
@@ -36,6 +41,11 @@ public class Sphere {
         } else {
             return false;
         }
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Sphere with center %s, radius %d", center, radius);
     }
     
     

@@ -2,6 +2,7 @@ package by.makarymalinouski.epam.sphere.reader;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
@@ -18,20 +19,22 @@ public class SphereReader {
     
     
     public Collection<Sphere> read(String fileName) {
-        try(BufferedReader reader = new BufferedReader(
-                new InputStreamReader(new FileInputStream(fileName)))
-                ) {
+        try(BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             String[] values = new String[4];
             Collection<Sphere> spheres = new HashSet<Sphere>();
             while ((line = reader.readLine()) != null) {
                 LOGGER.debug("line: " + line);
-                if (!(line.startsWith("#"))) {
+                if (!(line.startsWith("#")) && line.matches("(-?+\\d+ ){3}\\d+")) {
+                    LOGGER.debug("line match: " + line);
                     values = line.split(" ");
                     
                     spheres.add(new Sphere(
-                        new Point(Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2])), 
-                        Integer.parseInt(values[3])) );
+                            Integer.parseInt(values[0]), 
+                            Integer.parseInt(values[1]), 
+                            Integer.parseInt(values[2]), 
+                            Integer.parseInt(values[3]))
+                        );
                 }
             }
             return spheres;
@@ -41,5 +44,4 @@ public class SphereReader {
         return Collections.emptySet();
     }
     
-//    public Sphere makeSphere()
 }
